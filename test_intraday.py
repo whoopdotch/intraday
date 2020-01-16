@@ -18,8 +18,8 @@ def test_ticker():
     print(df.head())
 
 def test_ticker_all():
-    df = intraday.get_ticker_all('Test')
-    print(df.head())
+    ticker_list = intraday.get_ticker_all('Test')
+    print(ticker_list)
 
 if __name__ == "__main__":
     test_get_lastday_emptyframe()

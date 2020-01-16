@@ -33,7 +33,7 @@ def get_cache(ticker, ticker_type = None):
     try:
         return pd.read_csv(filename, parse_dates=True, index_col='Datetime')
     except FileNotFoundError:
-        print("Ticker cache file '{}' not found.\nCreating...".format(filename))
+        print("Ticker cache file '{}' not found.\n".format(filename))
         # return empty data frame on error
         return pd.DataFrame()
 
@@ -70,9 +70,12 @@ def get_ticker_all(ticker_type):
     xl_file = pd.ExcelFile(dirname + '/sources/Yahoo Ticker Symbols - September 2017.xlsx')
     dfs = {sheet_name: xl_file.parse(sheet_name, skiprows=3) for sheet_name in xl_file.sheet_names}
     # check if ticker type exists in file
+    ticker_found = []
     if ticker_type in dfs:
         for ticker in dfs[ticker_type]['Ticker']:
-            get_ticker(ticker, ticker_type = ticker_type)
+            if not get_ticker(ticker, ticker_type = ticker_type).empty:
+                ticker_found.append(ticker)
+        return ticker_found
     else:
         print('Invalid input.\n' + ticker_type + ' does not exist')
 
