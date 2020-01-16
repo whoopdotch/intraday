@@ -78,4 +78,3 @@ def get_ticker_all(ticker_type):
         return ticker_found
     else:
         print('Invalid input.\n' + ticker_type + ' does not exist')
-

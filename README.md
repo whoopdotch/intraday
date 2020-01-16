@@ -28,6 +28,7 @@ This method gets the data from the cache (if it exists) and appends 7 days of da
 ```python
 intraday.get_ticker_all('Mutual Fund')
 ```
+Returns list of tickers found.
 
 4. Alternatively, you can also just get the Dataframe currently stored in the cache for a ticker symbol by calling `get_cache`:
 ```python
