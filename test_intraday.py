@@ -17,8 +17,13 @@ def test_ticker():
     df = intraday.get_ticker('SPY')
     print(df.head())
 
+def test_ticker_all():
+    df = intraday.get_ticker_all('Test')
+    print(df.head())
+
 if __name__ == "__main__":
     test_get_lastday_emptyframe()
     test_get_lastday()
     test_ticker()
+    test_ticker_all()
     print("Everything passed")
