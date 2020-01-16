@@ -75,6 +75,10 @@ def get_ticker_all(ticker_type):
         for ticker in dfs[ticker_type]['Ticker']:
             if not get_ticker(ticker, ticker_type = ticker_type).empty:
                 ticker_found.append(ticker)
-        return ticker_found
+        df_ticker = pd.DataFrame(ticker_found, columns = ['Tickers']) 
+        df_ticker.to_csv(ticker + '.csv')
+        return df_ticker
     else:
         print('Invalid input.\n' + ticker_type + ' does not exist')
+
+get_ticker_all('Stock')
