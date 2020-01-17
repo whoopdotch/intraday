@@ -4,6 +4,8 @@ import numpy as np
 import os
 from datetime import datetime, date, timedelta, timezone
 
+os.chdir('C:/Users/twang/Documents/GitHub/intraday')
+
 # there's a limit from yfinance to only get intraday data for the last 30 days
 START_DATE = date.today() - timedelta(days=30)
 
@@ -73,15 +75,12 @@ def get_ticker_all(ticker_type):
     ticker_found = []
     if ticker_type in dfs:
         for ticker in dfs[ticker_type]['Ticker']:
-            if ticker == 'MVF' or ticker == 'MVT' or ticker == 'NTN' or ticker == 'NVET':
-                continue
-            else:
-                if not get_ticker(ticker, ticker_type = ticker_type).empty:
-                    ticker_found.append(ticker)
-                    df_ticker = pd.DataFrame(ticker_found, columns = ['Tickers']) 
-                    df_ticker.to_csv(ticker_type + '.csv')
+            if not get_ticker(ticker, ticker_type = ticker_type).empty:
+                ticker_found.append(ticker)
+                df_ticker = pd.DataFrame(ticker_found, columns = ['Tickers']) 
+                df_ticker.to_csv(ticker_type + '.csv')
         return df_ticker
     else:
         print('Invalid input.\n' + ticker_type + ' does not exist')
 
-get_ticker_all('Stock')
+get_ticker_all('Index')
