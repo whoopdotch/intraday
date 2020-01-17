@@ -4,8 +4,6 @@ import numpy as np
 import os
 from datetime import datetime, date, timedelta, timezone
 
-os.chdir('C:/Users/twang/Documents/GitHub/intraday')
-
 # there's a limit from yfinance to only get intraday data for the last 30 days
 START_DATE = date.today() - timedelta(days=30)
 
@@ -16,7 +14,7 @@ def df_to_utc(df):
     df.index = df.index.map(to_utc)
     
 def get_tickerfile(ticker, ticker_type = None):
-    dirname = os.path.dirname(__file__)
+    dirname = os.path.dirname(os.path.abspath(__file__))
     if ticker_type != None:
         if os.path.isdir(dirname + '/data/' + ticker_type) == False:
             try:
@@ -68,7 +66,7 @@ def get_ticker(ticker, ticker_type = None):
 
 def get_ticker_all(ticker_type):
     # get dict from file
-    dirname = os.path.dirname(__file__)
+    dirname = os.path.dirname(os.path.abspath(__file__))
     xl_file = pd.ExcelFile(dirname + '/sources/Yahoo Ticker Symbols - September 2017.xlsx')
     dfs = {sheet_name: xl_file.parse(sheet_name, skiprows=3) for sheet_name in xl_file.sheet_names}
     # check if ticker type exists in file
@@ -83,4 +81,4 @@ def get_ticker_all(ticker_type):
     else:
         print('Invalid input.\n' + ticker_type + ' does not exist')
 
-get_ticker_all('Index')
+get_ticker_all('Currency')
